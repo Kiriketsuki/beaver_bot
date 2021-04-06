@@ -1,23 +1,20 @@
 # %%
 # imports
 import pyautogui
-from PIL import ImageGrab as imagegrab
 import numpy as np
 import d3dshot
 import time
 # %%
 states = ['left', 'right']
-py_pause = 0.041
-pixel_pause = 0.0023
+py_pause = 0.04
+pixel_pause = 0.005
 right_branch_coords = (1340, 1000, 1341, 1001)
 left_branch_coords = (1220, 1000, 1221, 1001)
 brown = np.array((161, 116, 56))
 
 d = d3dshot.create(capture_output = "numpy")
 d.display
-# py 0.045 pixel 0.004 493
-# py 0.045 pixel 0.003 496
-# py 0.042 pixel 0.003 519
+# py 0.041 pixel 0.003 fastest 532
 
 
 pyautogui.PAUSE = py_pause
@@ -46,10 +43,10 @@ def check_pixel_ver_2(location):
         image = d.screenshot(region = right_branch_coords)
 
     if (image[0][0] == brown)[0]:
+        time.sleep(pixel_pause)
         print("SIAM")
         return True
     else:
-        time.sleep(pixel_pause)
         return False
 # %%
 def click_arrow(direction):
